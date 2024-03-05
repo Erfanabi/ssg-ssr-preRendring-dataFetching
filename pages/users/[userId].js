@@ -1,11 +1,21 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 function UserDetail({ data }) {
+  const router = useRouter();
+
+  console.log(router.isFallback);
   console.log(data);
+
+  // اینو حتما باید بنویسیم
+  if (router.isFallback) {
+    return <h2>Fallback Page!</h2>;
+  }
+
   return (
     <div>
-      <h1>{data.name}</h1>
-      <h3>{data.email}</h3>
+      <h1>{data?.name}</h1>
+      <h3>{data?.email}</h3>
     </div>
   );
 }
@@ -15,15 +25,16 @@ export default UserDetail;
 export async function getStaticPaths() {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
+  const newData = data.slice(0, 4);
 
   // ! Get the paths we want to pre-render based on data
-  const paths = data.map((item) => ({
+  const paths = newData.map((item) => ({
     params: { userId: item.id.toString() },
   }));
 
   // ! We'll pre-render only these paths at build time.
   // ! { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 
   //   return {
   //     paths: [
@@ -48,6 +59,13 @@ export async function getStaticProps({ params }) {
   );
   const data = await res.json();
   //   console.log(data);
+
+  if (!data.name) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       data,
