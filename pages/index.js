@@ -1,13 +1,11 @@
-import styles from "../styles/Home.module.css";
-
-export default function Home({ data }) {
-  console.log(data);
+export default function Home({ posts }) {
+  // console.log(posts);
 
   return (
-    <div className={styles.container}>
+    <div>
       <h1>page SSG with getStaticProps()</h1>
       <ul>
-        {data.map((item) => {
+        {posts.map((item) => {
           return <li key={item.id}>{item.title}</li>;
         })}
       </ul>
@@ -16,12 +14,12 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:3001/posts");
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   const data = await res.json();
 
   return {
     props: {
-      data,
+      posts: data,
     },
   };
 }
