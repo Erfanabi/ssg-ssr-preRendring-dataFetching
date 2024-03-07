@@ -62,7 +62,8 @@ export async function getStaticProps({ params }) {
 
   if (!data.name) {
     return {
-      notFound: true,
+      // notFound: true,
+      redirect: { destination: "/" },
     };
   }
 
