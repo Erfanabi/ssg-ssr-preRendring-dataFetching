@@ -1,5 +1,5 @@
 function Albums({ data }) {
-//   console.log(data);
+  //   console.log(data);
   return (
     <div>
       <h1>Albums</h1>
@@ -14,11 +14,16 @@ function Albums({ data }) {
 
 export default Albums;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const { params, req, res } = context;
+
+  console.log(req.headers);
+
   console.log("Generating Albums Page!");
+
   // Fetch data from external API
-  const res = await fetch("https://jsonplaceholder.typicode.com/albums");
-  const data = await res.json();
+  const response = await fetch("http://localhost:3001/albums");
+  const data = await response.json();
 
   // Pass data to the page via props
   return { props: { data } };
