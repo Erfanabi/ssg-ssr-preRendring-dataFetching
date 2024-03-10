@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
   // console.log(req.headers);
   // console.log(query);
 
-  console.log("Generating Albums Page!");
+  console.log("Generating Albums Page! | SSR");
 
   // Fetch data from external API
   const response = await fetch("https://jsonplaceholder.typicode.com/albums");
