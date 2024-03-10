@@ -15,9 +15,10 @@ function Albums({ data }) {
 export default Albums;
 
 export async function getServerSideProps(context) {
-  const { params, req, res } = context;
+  const { params, req, res, query } = context;
 
   console.log(req.headers);
+  console.log(query);
 
   console.log("Generating Albums Page!");
 
