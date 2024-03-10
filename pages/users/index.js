@@ -20,7 +20,7 @@ export default Users;
 
 export async function getStaticProps() {
   console.log("Regenerating Users Page! | ISR");
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const res = await fetch("http://localhost:3001/users");
   const users = await res.json();
 
   return {

@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
   console.log("Generating Albums Page! | SSR");
 
   // Fetch data from external API
-  const response = await fetch("https://jsonplaceholder.typicode.com/albums");
+  const response = await fetch("http://localhost:3001/albums");
   const data = await response.json();
 
   // Pass data to the page via props
