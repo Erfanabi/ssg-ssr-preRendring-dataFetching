@@ -1,19 +1,17 @@
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 function Todos() {
-  const [dataTodo, setDataTodo] = useState([]);
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("https://jsonplaceholder.typicode.com/todos");
-      const todos = await res.json();
-      setDataTodo(todos);
-    }
+  const { data, error, isLoading } = useSWR(
+    "https://jsonplaceholder.typicode.com/todos",
+    fetcher
+  );
 
-    fetchData();
-  }, []);
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
 
-  console.log(dataTodo);
+  console.log({ data, error });
 
   return (
     <div>
@@ -29,6 +27,3 @@ function Todos() {
 }
 
 export default Todos;
-
-// const res = await fetch("https://jsonplaceholder.typicode.com/users");
-// const users = await res.json();
