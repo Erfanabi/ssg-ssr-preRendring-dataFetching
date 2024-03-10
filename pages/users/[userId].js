@@ -23,7 +23,7 @@ function UserDetail({ data }) {
 export default UserDetail;
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:3001/users");
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
   const newData = data.slice(0, 4);
 
@@ -54,7 +54,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:3001/users/${params.userId}`);
+  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${params.userId}`);
   const data = await res.json();
   //   console.log(data);
 
